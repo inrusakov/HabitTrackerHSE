@@ -27,7 +27,7 @@ def start_command(message):
     chat_id = message.chat.id
     update_user_data(chat_id, user)
     markup.add(btn1)
-    bot.send_message(message.chat.id, text=get_string_from_file("startcommand.txt").format(message.from_user), reply_markup=markup)
+    bot.send_message(message.chat.id, text=get_string_from_file("commands\startcommand.txt").format(message.from_user), reply_markup=markup)
 
 # Функция обработки команды setatarget.
 @bot.message_handler(commands=['setatarget'])
@@ -68,7 +68,7 @@ def help_command(message):
     btn2 = types.KeyboardButton("/addpages")
     btn3 = types.KeyboardButton("/progress")
     markup.add(btn1, btn2, btn3)
-    bot.send_message(message.chat.id, text=get_string_from_file("infocommand.txt").format(message.from_user), reply_markup=markup)
+    bot.send_message(message.chat.id, text=get_string_from_file("commands\infocommand.txt").format(message.from_user), reply_markup=markup)
 
 # Функция обработки команды donate.
 @bot.message_handler(commands=['donate'])
