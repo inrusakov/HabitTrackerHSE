@@ -1,8 +1,7 @@
 # Библиотека API Telegram.
-import telebot
+import telebot, json, pickle
 # Для указания Типов и создания внутренней клавиатуры.
 from telebot import types
-from datetime import datetime, date, time
 # Функция для получения строки из документа.
 def get_string_from_file(path):
     with open(path, "r", encoding="utf-8") as f:
@@ -14,7 +13,8 @@ bot = telebot.TeleBot(get_string_from_file("token.txt"))
 users = {}
 # Функция для добавления/обновления информации о пользователя.
 def update_user_data(chat_id, user):
-    users[chat_id] = {user, datetime.now()}
+    users[chat_id] = {user}
+    log_users("users_log.txt")
 
 
 # Функция обработки команды start.
@@ -75,7 +75,7 @@ def help_command(message):
 def help_command(message):
     print(log_commands(message))
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    btn1 = types.KeyboardButton("/help")
+    btn1 = types.KeyboardButton("/info")
     markup.add(btn1)
     bot.send_message(message.chat.id,
                      text="{0.first_name}, Спасибо за поддержку!"
@@ -90,7 +90,13 @@ def log_commands(message):
         text = message.text
     user = message.from_user.username
     chat_id = message.chat.id
-    return "I got this message: " + text + " from @" + user + " chat ID: " + str(chat_id)
+    return "Message: " + text + " from @" + user + " chat ID: " + str(chat_id)
+
+def log_users(path):
+    with open(path, "a", encoding="utf-8") as f:
+        for key in users:
+            f.write(str(key) + " " + str(list(users[key])))
+        f.close()
 
 # Команда которая говорит боту, что нужно забирать полученные сообщения.
 bot.infinity_polling()
