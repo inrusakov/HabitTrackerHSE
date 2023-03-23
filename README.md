@@ -16,6 +16,7 @@ Flow Chart
 flowchart TD
     A["/start command"] --> B(Command input)
     B --> C{Command check}
+    C -->|"/info"| H["/info execution"] --> B
     C -->|"/setatarget"| D["/setatarget execution"] --> B
     C -->|"/addpages"| E["/addpages execution"] --> B
     C -->|"/progress"| F["/progress execution"] --> B
