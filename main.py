@@ -27,7 +27,9 @@ def start_command(message):
     chat_id = message.chat.id
     update_user_data(chat_id, user)
     markup.add(btn1)
+    start_video = open(r'C:\Users\Rus-P\Desktop\Work\HSE\HabitBot\HabitTrackerHSE\start.mp4', 'rb')
     bot.send_message(message.chat.id, text=get_string_from_file("commands\startcommand.txt").format(message.from_user), reply_markup=markup)
+    bot.send_video(message.chat.id, start_video, timeout=10)
 
 # Функция обработки команды setatarget.
 @bot.message_handler(commands=['setatarget'])
